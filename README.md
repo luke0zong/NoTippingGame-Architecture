@@ -93,7 +93,15 @@ Read the `readme.md` for instructions.
 
 To run the test script, use the same host name and port number that was used for the php script. For example, you should use this command `python3 test_no_tipping.py --port XXXX --name TEST`. Therefore, your code should also accept host name and port number as an argument.
 
-### Description of random strategy:
+
+### requirements
+
+`test_no_tipping.py` uses `SocketClient`, install `hps-nyu`:
+```
+pip install --user hps-nyu
+```
+
+### Description of random strategy
 
 A Random Strategy should play the first or second player's game (depending on the command line). During AddMode, it should choose a random remaining block and place it as far left as possible so as to avoid tipping. During RemoveMode, it should examine all blocks on the board, determine which are will not cause tipping, and remove a random one of those.
 
