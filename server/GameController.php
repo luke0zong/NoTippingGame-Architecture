@@ -6,6 +6,7 @@ class GameController
     private $resources;
     public $player1 = "Player 1";
     public $player2 = "Player 2";
+    private $observed = false;
 
     function __construct($address, $port)
     {
@@ -84,6 +85,7 @@ class GameController
                 // socket_write($this->resources[0], chr(129) . chr(strlen($gameInfo)) . $gameInfo);
                 $this->sendObserver($gameInfo);
                 echo "         Connection to observer established!\n";
+                $this->observed = true;
             }
         }
     }
@@ -92,7 +94,10 @@ class GameController
     {
         socket_close($this->resources[1]);
         socket_close($this->resources[2]);
-        socket_close($this->resources[0]); // observer
+        if ($this->observed) {
+            // close observer connection
+            socket_close($this->resources[0]);
+        }
         socket_close($this->socket);
     }
 
