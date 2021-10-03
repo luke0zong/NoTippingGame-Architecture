@@ -24,7 +24,7 @@ class Board
     public function isGameOver()
     {
         $this->calculateTorque();
-        return $this->leftTorque < 0 || $this->rightTorque > 0;
+        return $this->leftTorque > 0 || $this->rightTorque < 0;
     }
 
     function calculateTorque()
@@ -32,12 +32,13 @@ class Board
         $leftTorque = 0;
         $rightTorque = 0;
         for ($i = -$this->boardLength; $i <= $this->boardLength; $i++) {
-            $leftTorque += ($i + 3) * $this->boardState[$i];
-            $rightTorque += ($i + 1) * $this->boardState[$i];
+            $leftTorque -= ($i + 3) * $this->boardState[$i];
+            $rightTorque -= ($i + 1) * $this->boardState[$i];
         }
+        echo "[adamlp] " . $leftTorque . "]\n";
         // add information about the board weight, now let's do 3
-        $leftTorque += 3 * $this->boardWeight;
-        $rightTorque += 1 * $this->boardWeight;
+        $leftTorque -= 3 * $this->boardWeight;
+        $rightTorque -= 1 * $this->boardWeight;
         $this->leftTorque = $leftTorque;
         $this->rightTorque = $rightTorque;
     }

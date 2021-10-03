@@ -63,7 +63,7 @@ while (!$myGame->gameOver) {
     echo "[GAME] Board Status: \n";
     echo $board_indices . "\n";
     echo $board_state_output . "\n\n";
-    echo "[GAME] Torque over left post at -4: [" . $myGame->leftTorque . "]\n";
+    echo "[GAME] Torque over left post at -3: [" . $myGame->leftTorque . "]\n";
     echo "       Torque over right post at -1: [" . $myGame->rightTorque . "]\n\n";
     draw($myGame, false);
 
