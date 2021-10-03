@@ -35,7 +35,6 @@ class Board
             $leftTorque -= ($i + 3) * $this->boardState[$i];
             $rightTorque -= ($i + 1) * $this->boardState[$i];
         }
-        echo "[adamlp] " . $leftTorque . "]\n";
         // add information about the board weight, now let's do 3
         $leftTorque -= 3 * $this->boardWeight;
         $rightTorque -= 1 * $this->boardWeight;
