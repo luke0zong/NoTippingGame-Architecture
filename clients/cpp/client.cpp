@@ -237,6 +237,7 @@ string Client::receive_data(int buffer_size)
     {
         data.append(buffer);
     }
+    memset(buffer, 0, buffer_size);
     free(buffer);
 
     cout << "[INFO] Received data from server ..." << endl;
