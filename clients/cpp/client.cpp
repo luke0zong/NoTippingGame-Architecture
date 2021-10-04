@@ -231,6 +231,7 @@ void Client::close_socket()
 string Client::receive_data(int buffer_size)
 {
     char *buffer = (char *)malloc(sizeof(*buffer) * buffer_size);
+    memset(buffer, 0, buffer_size);
     string data;
     int valread = read(client_sock, buffer, buffer_size);
     if (valread >= 1)
