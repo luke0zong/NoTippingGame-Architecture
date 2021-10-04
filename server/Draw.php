@@ -62,11 +62,11 @@ function beginScript($handle, $board, $finished)
 		<script>
 			var player1 = {
 				weights: [],
-				name: '{$board->player[1]->name}'
+				name: \"{$board->player[1]->name}\"
 			};
 			var player2 = {
 				weights: [],
-				name: '{$board->player[2]->name}'
+				name: \"{$board->player[2]->name}\"
 			};
 
 			var leftTorque = {$board->leftTorque};
