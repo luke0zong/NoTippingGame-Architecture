@@ -38,8 +38,8 @@ class Board
             $this->rightTorque += ($i + 1) * $this->boardState[$i];
         }
 
-        $this->leftTorque = - $this->leftTorque;
-        $this->rightTorque = - $this->rightTorque;
+        $this->leftTorque = -$this->leftTorque;
+        $this->rightTorque = -$this->rightTorque;
     }
 
 
@@ -156,7 +156,7 @@ class Board
         $this->player[$turn]->timeLeft -= $time;
 
         if ($this->player[$turn]->timeLeft <= 0) {
-            $this->setGameOver("[PLAYER] " . $this->player[$turn]->timeLeft . " has ran out of time");
+            $this->setGameOver("[" . $this->player[$turn]->name . "] " . $this->player[$turn]->timeLeft . " has ran out of time");
         } else {
             echo "[PLAYER] " . $this->player[$turn]->name . " has " . $this->player[$turn]->timeLeft . " seconds left\n";
         }

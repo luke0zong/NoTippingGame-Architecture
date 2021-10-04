@@ -1,35 +1,37 @@
 
 <?php
-function draw($board, $finished) {
-    $file = 'index.html';
-    $handle = fopen($file, 'w') or die('Cannot open file: ' . $file);
+function draw($board, $finished)
+{
+	$file = 'index.html';
+	$handle = fopen($file, 'w') or die('Cannot open file: ' . $file);
 
-    writeHeader($handle, $board, $finished);
-    beginScript($handle, $board, $finished);
-    writeBoardState($handle, $board);
-    writeEndScript($handle, $board);
+	writeHeader($handle, $board, $finished);
+	beginScript($handle, $board, $finished);
+	writeBoardState($handle, $board);
+	writeEndScript($handle, $board);
 
 
-    fclose($handle);
+	fclose($handle);
 }
 
-function writeBoardState($handle, $board) {
+function writeBoardState($handle, $board)
+{
 	fwrite($handle, "\t\tboardState = [];\n");
 	fwrite($handle, "\t\t\t\tboardColor = [];\n");
 
 
-	foreach($board->boardState as $key => $value) {
-	   fwrite($handle, "\t\t\t\tboardState.push($value);\n");
+	foreach ($board->boardState as $key => $value) {
+		fwrite($handle, "\t\t\t\tboardState.push($value);\n");
 	}
 
-	foreach($board->boardColor as $key => $value){
-	    fwrite($handle, "\t\t\t\tboardColor.push($value);\n");
+	foreach ($board->boardColor as $key => $value) {
+		fwrite($handle, "\t\t\t\tboardColor.push($value);\n");
 	}
-
 }
 
-function writeHeader($handle, $board, $finished){
-	fwrite($handle,'
+function writeHeader($handle, $board, $finished)
+{
+	fwrite($handle, '
 	
 	<!DOCTYPE html>
 	<html>
@@ -41,11 +43,10 @@ function writeHeader($handle, $board, $finished){
 				}
 			</style>
 			    ');
-	if( $finished == false){
-	fwrite($handle,'
-			 <meta http-equiv="refresh" content="1; URL=http://localhost:8000/index.html">');
-
-	
+	if ($finished == false) {
+		fwrite($handle, '
+			 <meta http-equiv="refresh" content="0.5">');
+		//  <meta http-equiv="refresh" content="1; URL=http://localhost:8000/index.html">');
 	}
 	fwrite($handle, '
 		</head>
@@ -55,7 +56,8 @@ function writeHeader($handle, $board, $finished){
 	');
 }
 
-function beginScript($handle, $board, $finished) {
+function beginScript($handle, $board, $finished)
+{
 	fwrite($handle, "
 		<script>
 			var player1 = {
@@ -91,13 +93,13 @@ function beginScript($handle, $board, $finished) {
 					drawBoard(this.canvas.width, this.canvas.height);
 					drawUnusedWeights(this.canvas.width, this.canvas.height);
 \n");
-			
 
-	if( $finished == true){
-	    fwrite($handle, "
+
+	if ($finished == true) {
+		fwrite($handle, "
 					drawWin(this.canvas.width, this.canvas.height);\n");
 	}
-	fwrite($handle,"
+	fwrite($handle, "
 
 				},
 			}
@@ -107,8 +109,9 @@ function beginScript($handle, $board, $finished) {
 	");
 }
 
-function writeEndScript($handle, $board){
-	fwrite($handle,'
+function writeEndScript($handle, $board)
+{
+	fwrite($handle, '
 
 			    ctx = myGameArea.context;
 			    var start = 60;
@@ -122,7 +125,7 @@ function writeEndScript($handle, $board){
 				}else{
 				    ctx.fillStyle = "red";
 				}
-				ctx.font = "12px Consolas";
+				ctx.font = "14px Consolas";
 				ctx.fillText(boardState[i], start + i * step - 3, 3 * height /4 - 60);
 
 
@@ -143,7 +146,7 @@ function writeEndScript($handle, $board){
 				var step = length / 60;
 				for(var i = 0; i <= 60; ++i) {
 					ctx.fillStyle = "black";
-					ctx.font = "12px Consolas";
+					ctx.font = "14px Consolas";
 					if(i % 5 == 0) {
 						ctx.fillText(i - 30, start + i * step - 3, 3 * height / 4 + 60);
 					}
@@ -152,16 +155,18 @@ function writeEndScript($handle, $board){
 					ctx.stroke();
 				}
 
-				// SUPPORT at -4
-				ctx.moveTo(start + 26 * step, 3 * height / 4);
-				ctx.lineTo(start + 25 * step, 3 * height / 4 + 40);
-				ctx.lineTo(start + 27 * step, 3 * height / 4 + 40);
+				ctx.fillStyle = "gray";
+
+				// SUPPORT at -3
+				ctx.moveTo(start + 27 * step, 3 * height / 4);
+				ctx.lineTo(start + 26.8 * step, 3 * height / 4 + 200);
+				ctx.lineTo(start + 27.2 * step, 3 * height / 4 + 200);
 				ctx.fill();
 
 				// SUPPORT AT -1
 				ctx.moveTo(start + 29 * step, 3 * height / 4);
-				ctx.lineTo(start + 28 * step, 3 * height / 4 + 40);
-				ctx.lineTo(start + 30 * step, 3 * height / 4 + 40);
+				ctx.lineTo(start + 28.8 * step, 3 * height / 4 + 200);
+				ctx.lineTo(start + 29.2 * step, 3 * height / 4 + 200);
 				ctx.fill();
 
 
@@ -169,18 +174,18 @@ function writeEndScript($handle, $board){
 
 		function drawWeights(width, height){
 			ctx = myGameArea.context;
-			ctx.font = "20px Consolas";
-			ctx.fillStyle = "black";
+			ctx.font = "25px Verdana";
+			ctx.fillStyle = "orange";
 			var start = 60;
 			var length = width - 168;
-			var step = length/60;
-			ctx.fillText(leftTorque, start + 24 * step, 3.2 * height /4 + 60);
-			ctx.fillText(rightTorque, start + 28 * step, 3.2 * height /4 + 60);
+			var step = length / 60;
+			ctx.fillText(leftTorque, start + 24 * step, 3.2 * height /4 + 150);
+			ctx.fillText(rightTorque, start + 30 * step, 3.2 * height /4 + 150);
 		}
 
 		function drawUnusedWeights(width, height){
 			ctx = myGameArea.context;
-			ctx.font = "12px Consolas";
+			ctx.font = "14px Consolas";
 			ctx.fillStyle = "black";
 			var start = 60;
 			var length = width - 168;
@@ -204,7 +209,7 @@ function writeEndScript($handle, $board){
 					down = down + 30;
 				}
 			}
-			
+
 			start = (width/2)+400;
 			down = 80;
 			right = 0;
@@ -251,7 +256,6 @@ function writeEndScript($handle, $board){
 			out = out + " Wins!";
 			var length = width - 168;
 			ctx.fillText(out, length/2,  height/2);
-			
 		}
 
 	    </script>
@@ -259,5 +263,3 @@ function writeEndScript($handle, $board){
 
 	');
 }
-
-

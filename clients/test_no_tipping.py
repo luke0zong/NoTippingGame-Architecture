@@ -105,11 +105,11 @@ class NoTippingClient(object):
         left_torque = 0
         right_torque = 0
         for i in range(0, 61):
-            left_torque += (i - 30 + 3) * self.board_state[i]
-            right_torque += (i - 30 + 1) * self.board_state[i]
-        left_torque += 3 * 3
-        right_torque += 1 * 3
-        return left_torque >= 0 and right_torque <= 0
+            left_torque -= (i - 30 + 3) * self.board_state[i]
+            right_torque -= (i - 30 + 1) * self.board_state[i]
+        left_torque -= 3 * 3
+        right_torque -= 1 * 3
+        return left_torque <= 0 and right_torque >= 0
 
     def find_place_position(self, weight, board_state):
         for i in range(0, 61):
