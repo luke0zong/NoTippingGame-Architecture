@@ -131,6 +131,8 @@ Have both clients establish a connection to the server. If you are using test cl
 | Team        | Received On | Test |
 | ----------- | ----------- | ---- |
 | Team Player | 10/01       | PASS |
+| Yifan       | 10/04       | PASS |
+| Omicron     | 10/04       | PASS |
 
 ## Contact Us
 Yaowei Zong - yz7413@nyu.edu
