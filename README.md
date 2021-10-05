@@ -138,6 +138,8 @@ Have both clients establish a connection to the server. If you are using test cl
 | NimRod        | 10/05       | PASS |
 | Space Marines | 10/05       |      |
 | Team Z        | 10/05       | PASS |
+| Black Box     | 10/05       | PASS |
+
 
 ## Contact Us
 Yaowei Zong - yz7413@nyu.edu
