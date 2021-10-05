@@ -137,6 +137,7 @@ Have both clients establish a connection to the server. If you are using test cl
 | Red Scarf     | 10/05       | PASS |
 | NimRod        | 10/05       | PASS |
 | Space Marines | 10/05       |      |
+| Team Z        | 10/05       | PASS |
 
 ## Contact Us
 Yaowei Zong - yz7413@nyu.edu
