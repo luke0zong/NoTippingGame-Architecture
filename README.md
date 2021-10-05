@@ -128,11 +128,15 @@ Have both clients establish a connection to the server. If you are using test cl
 
 ## Received Code
 
-| Team        | Received On | Test |
-| ----------- | ----------- | ---- |
-| Team Player | 10/01       | PASS |
-| Yifan       | 10/04       | PASS |
-| Omicron     | 10/04       | PASS |
+| Team          | Received On | Test |
+| ------------- | ----------- | ---- |
+| Team Player   | 10/01       | PASS |
+| Yifan         | 10/04       | PASS |
+| Omicron       | 10/04       | PASS |
+| CoCo 11       | 10/05       | PASS |
+| Red Scarf     | 10/05       | PASS |
+| NimRod        | 10/05       | PASS |
+| Space Marines | 10/05       |      |
 
 ## Contact Us
 Yaowei Zong - yz7413@nyu.edu
