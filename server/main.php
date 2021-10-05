@@ -21,6 +21,7 @@ $numOfWeights = (int)$argv[2];
 $board_length = 30;
 $slow = false;
 $observed = false;
+$moveString = "";
 
 foreach ($argv as $arg) {
     if ($arg == "-w") {
@@ -36,6 +37,7 @@ foreach ($argv as $arg) {
 $myController = new GameController("localhost", $argv[1]);
 $myController->createConnection($numOfWeights, $board_length, $observed);
 $myGame = new Board($board_length, $numOfWeights, 3, $myController->player1, $myController->player2);
+
 while (!$myGame->gameOver) {
     echo "----------------------------------------------------------------\n";
 
@@ -65,7 +67,7 @@ while (!$myGame->gameOver) {
     echo $board_state_output . "\n\n";
     echo "[GAME] Torque over left post at -3: [" . $myGame->leftTorque . "]\n";
     echo "       Torque over right post at -1: [" . $myGame->rightTorque . "]\n\n";
-    draw($myGame, false);
+    draw($myGame, false, "");
 
 
     // send game state to current player
@@ -81,21 +83,28 @@ while (!$myGame->gameOver) {
         break;
     }
 
+    $playerName = $myGame->player[$myGame->currentTurn]->name;
+
     if ($myGame->currentState == "place") {
-        echo "[PLAYER] Placing weight " . $move->weight . " at position " . $move->position . "\n";
+        $moveString = $playerName . ": Placing weight " . $move->weight . " at position " . $move->position;
+        echo "         " . $moveString . "\n";
         $myGame->move((int)$move->weight, (int)$move->position);
     } else {
-        echo "[PLAYER] Removing weight from position " . $move->position . "\n";
+        $moveString = $playerName . ": Removing weight from position " . $move->position;
+        echo "         " . $moveString . "\n";
         $myGame->remove((int)$move->position);
     }
 
+    // send move string to draw
+    draw($myGame, false, $moveString);
+
     if ($slow) {
-        sleep(1); // sleep for a second
+        usleep(1500000); // sleep for 1.5 seconds
     }
 }
 
 // Game over, send final message to players
 $myController->send(1, $myGame->generateSendingString());
 $myController->send(2, $myGame->generateSendingString());
-draw($myGame, true);
+draw($myGame, true, $moveString);
 $myController->closeConnection();

@@ -1,12 +1,12 @@
 
 <?php
-function draw($board, $finished)
+function draw($board, $finished, $message)
 {
 	$file = 'index.html';
 	$handle = fopen($file, 'w') or die('Cannot open file: ' . $file);
 
 	writeHeader($handle, $board, $finished);
-	beginScript($handle, $board, $finished);
+	beginScript($handle, $board, $finished, $message);
 	writeBoardState($handle, $board);
 	writeEndScript($handle, $board);
 
@@ -56,7 +56,7 @@ function writeHeader($handle, $board, $finished)
 	');
 }
 
-function beginScript($handle, $board, $finished)
+function beginScript($handle, $board, $finished, $message)
 {
 	fwrite($handle, "
 		<script>
@@ -75,6 +75,8 @@ function beginScript($handle, $board, $finished)
 			var maxWeight = {$board->maxWeight};
 			var boardState;
 			var boardColor;
+			var message = \"$message\";
+			var endReason = \"{$board->gameOverReason}\";
 
 			function startGame() {
 				myGameArea.start();
@@ -92,6 +94,7 @@ function beginScript($handle, $board, $finished)
 					drawWeights(this.canvas.width, this.canvas.height);
 					drawBoard(this.canvas.width, this.canvas.height);
 					drawUnusedWeights(this.canvas.width, this.canvas.height);
+					displayMove(this.canvas.width, this.canvas.height);
 \n");
 
 
@@ -253,9 +256,17 @@ function writeEndScript($handle, $board)
 			if( turn == 2){
 				out = player1.name;
 			}
-			out = out + " Wins!";
+			out = out + " Wins!\n" + this.endReason;
 			var length = width - 168;
-			ctx.fillText(out, length/2,  height/2);
+			ctx.fillText(out, length/3,  height/2);
+		}
+
+		function displayMove(width, height){
+			ctx = myGameArea.context;
+			ctx.font = "30px Consolas";
+			ctx.fillStyle = "black";
+			var length = width - 168;
+			ctx.fillText(this.message, length/3,  height/3);
 		}
 
 	    </script>

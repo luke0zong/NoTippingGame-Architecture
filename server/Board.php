@@ -15,6 +15,7 @@ class Board
     public $boardColor;
     public $leftTorque;
     public $rightTorque;
+    public $gameOverReason;
 
     /**
      * This function is used to check the balance, and check whether it is over or not
@@ -84,6 +85,7 @@ class Board
         $this->gameOver = true;
         echo "\n[GAME OVER] $gameOverReason.\n";
         echo "            Winner is [" . $this->player[3 - $this->currentTurn]->name . "]\n";
+        $this->gameOverReason = $gameOverReason;
     }
 
 
@@ -130,12 +132,12 @@ class Board
     public function remove($position)
     {
         if ($position < -$this->boardLength || $position > $this->boardLength || $this->boardState[$position] == 0) {
-            $this->setGameOver("Wrong position from " . $this->player[$this->currentTurn]->name . "\n");
+            $this->setGameOver("Wrong position from " . $this->player[$this->currentTurn]->name);
         } else {
             $weight = $this->boardState[$position];
             $this->boardState[$position] = 0;
             if ($this->isGameOver()) {
-                $this->setGameOver("Tipping by " . $this->player[$this->currentTurn]->name . "\n");
+                $this->setGameOver("Tipping by " . $this->player[$this->currentTurn]->name);
                 echo "[GAME] " . "Left Torque: [" . $this->leftTorque . "]  Right Torque: [" . $this->rightTorque . "]\n";
             } else {
                 echo "[GAME] " . $this->player[$this->currentTurn]->name . " removes weight $weight on position $position; still balanced\n";
