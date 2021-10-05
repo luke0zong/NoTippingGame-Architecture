@@ -78,6 +78,8 @@ function beginScript($handle, $board, $finished, $message)
 			var message = \"$message\";
 			var endReason = \"{$board->gameOverReason}\";
 
+			var tip = {$board->tipDirection};
+
 			function startGame() {
 				myGameArea.start();
 			}
@@ -92,10 +94,17 @@ function beginScript($handle, $board, $finished, $message)
 					drawTiles(this.canvas.width, this.canvas.height);
 					drawPlayers(this.canvas.width, this.canvas.height);
 					drawWeights(this.canvas.width, this.canvas.height);
-					drawBoard(this.canvas.width, this.canvas.height);
+					
 					drawUnusedWeights(this.canvas.width, this.canvas.height);
 					displayMove(this.canvas.width, this.canvas.height);
+					
 \n");
+
+	if ($board->tipDirection != 0) {
+		fwrite($handle, "					drawTip(this.canvas.width, this.canvas.height);\n");
+	} else {
+		fwrite($handle, "					drawBoard(this.canvas.width, this.canvas.height);\n");
+	}
 
 
 	if ($finished == true) {
@@ -268,6 +277,24 @@ function writeEndScript($handle, $board)
 			var length = width - 168;
 			ctx.fillText(this.message, length/3,  height/3);
 		}
+
+		function drawTip(width, height){
+			ctx = myGameArea.context;
+			ctx.fillStyle = "black";
+			var length = width - 168;
+			if( this.tip == 1 ) {
+				ctx.translate(1450, 550);
+				ctx.rotate(Math.PI / 180 * 170);
+				ctx.fillRect(0, 0, length, 5);
+				ctx.setTransform(1, 0, 0, 1, 0, 0);
+			} else if( this.tip == 2 ){
+				ctx.rotate(-Math.PI / 180 * 170);
+				ctx.translate(-1630, -1100);
+				ctx.fillRect(60, 560, length, 5);
+				ctx.setTransform(1, 0, 0, 1, 0, 0);
+			}
+		}
+
 
 	    </script>
 	</html>

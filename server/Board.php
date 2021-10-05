@@ -16,6 +16,7 @@ class Board
     public $leftTorque;
     public $rightTorque;
     public $gameOverReason;
+    public $tipDirection;
 
     /**
      * This function is used to check the balance, and check whether it is over or not
@@ -108,8 +109,10 @@ class Board
 
             if ($this->isGameOver()) {
                 $this->setGameOver("Tipping by " . $this->player[$this->currentTurn]->name);
+                $this->tipDirection = $this->leftTorque > 0 ? 1 : 2;
                 echo "[GAME] " . "Left Torque: [" . $this->leftTorque . "]  Right Torque: [" . $this->rightTorque . "]\n";
             } else {
+                $this->tipDirection = 0;
                 echo "[PLAYER] " . $this->player[$this->currentTurn]->name . " put weight $weight on position $position; still balanced\n";
                 echo "[GAME] " . "Left Torque: [" . $this->leftTorque . "]  Right Torque: [" . $this->rightTorque . "]\n";
                 $this->currentPut++;
@@ -138,6 +141,7 @@ class Board
             $this->boardState[$position] = 0;
             if ($this->isGameOver()) {
                 $this->setGameOver("Tipping by " . $this->player[$this->currentTurn]->name);
+                $this->tipDirection = $this->leftTorque > 0 ? 1 : 2;
                 echo "[GAME] " . "Left Torque: [" . $this->leftTorque . "]  Right Torque: [" . $this->rightTorque . "]\n";
             } else {
                 echo "[GAME] " . $this->player[$this->currentTurn]->name . " removes weight $weight on position $position; still balanced\n";
